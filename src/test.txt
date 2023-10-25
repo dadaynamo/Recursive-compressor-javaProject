@@ -1,0 +1,36 @@
+
+    //scrivere in un file scelto come input
+    try {
+         File obj = new File("./filename.txt");
+         //creo un FileWriter per il file mettendo il parametro true per l'append
+         FileWriter fw = new FileWriter(obj,true);
+         //creo un BufferedWriter per scrivere in modo più efficiente
+         BufferedWriter bufferedWriter = new BufferedWriter(fw);
+         //scrivo in un file
+         bufferedWriter.write("Deh Pe FOOORZAAAA");
+        //mando a capo il cursore
+         bufferedWriter.newLine();
+
+         //chiudo il bufferedWriter
+         bufferedWriter.close();
+    } catch (Exception e) {
+        // TODO: handle exception
+    }
+
+    //provo a comprimere il file di nome filename.txt
+    try {
+        FileInputStream fileInputStream = new FileInputStream("filename.txt");
+        GZIPOutputStream gzipOutputStream = new GZIPOutputStream(new FileOutputStream("file_compresso.gz"));
+    
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = fileInputStream.read(buffer)) > 0) {
+            gzipOutputStream.write(buffer, 0, len);
+        }
+    
+        fileInputStream.close();
+        gzipOutputStream.finish();
+        gzipOutputStream.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
